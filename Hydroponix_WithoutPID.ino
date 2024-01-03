@@ -136,12 +136,12 @@ if(start){
     if(volume1<setpoint1){
     digitalWrite(onHigh1, HIGH);
     digitalWrite(lowAlways1, LOW);
-    digitalWrite(pwm1, 125);
+    analogWrite(pwm1, 125);
   }
   else{
     digitalWrite(onHigh1, LOW);
     digitalWrite(lowAlways1, LOW);
-    digitalWrite(pwm1, 0);
+    analogWrite(pwm1, 0);
     oneDone = true; 
   }}
 else{
@@ -154,36 +154,36 @@ else{
   if((volume2<setpoint2) && oneDone){
     digitalWrite(onHigh2, HIGH);
     digitalWrite(lowAlways2, LOW);
-    digitalWrite(pwm2, 125);
+    analogWrite(pwm2, 125);
   }
   else if(volume2>=setpoint2){
     twoDone = true;
     digitalWrite(onHigh2, LOW);
     digitalWrite(lowAlways2, LOW);
-    digitalWrite(pwm2, 0);
+    analogWrite(pwm2, 0);
   }
   else{
     digitalWrite(onHigh2, LOW);
     digitalWrite(lowAlways2, LOW);
-    digitalWrite(pwm2, 0);
+    analogWrite(pwm2, 0);
   }
 
 //three
    if(volume3<setpoint3 && oneDone && twoDone){
     digitalWrite(onHigh3, HIGH);
     digitalWrite(lowAlways3, LOW);
-    digitalWrite(pwm3, 125);
+    analogWrite(pwm3, 125);
   }
   else if(volume3>=setpoint3){
     threeDone = true;
     digitalWrite(onHigh2, LOW);
     digitalWrite(lowAlways2, LOW);
-    digitalWrite(pwm2, 0);
+    analogWrite(pwm2, 0);
   }
   else{
     digitalWrite(onHigh3, LOW);
     digitalWrite(lowAlways3, LOW);
-    digitalWrite(pwm3, 0);
+    analogWrite(pwm3, 0);
   }
 
 

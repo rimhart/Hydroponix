@@ -4,27 +4,27 @@ i think this concurrent method is just dangerous and don't know if it's work
 
 
 //PIN FOR FLOWMETER
-const int flowmeter1 = D21;
-const int flowmeter2 = D19;
-const int flowmeter3 = D18; 
+#define flowmeter1 = D21;
+#define flowmeter2 = D19;
+#define flowmeter3 = D18; 
 
 //PIN FOR MOTOR DRIVER
 
 //pwm
-const int pwm1 =  D34; //ena1
-const int pwm2 =  D26; //ena2
-const int pwm3 =  D12; //ena3 
+#define pwm1 =  D34; //ena1
+#define pwm2 =  D26; //ena2
+#define pwm3 =  D12; //ena3 
 
 //in
-const int onHigh1 = ; //in 1
-const int lowAlways1 = ; //in2
-const int onHigh2 = ; //in3
-const int lowAlways2 = ; //in4
-const int onHigh3 = ; //in5
-const int lowAlways3 = ; //in6
+#define onHigh1 = D35 ; //in 1
+#define lowAlways1 = D32; //in2
+#define onHigh2 = D33 ; //in3
+#define lowAlways2 =  D25; //in4
+#define onHigh3 = D27; //in5
+#define lowAlways3 = D14; //in6
 
 //PIN FOR BUZZER
-const int buzzer = D15; 
+#define buzzer = D15; 
 
 //VARIABLE
 
@@ -42,10 +42,13 @@ double setpoint2;
 double setpoint3; 
 
 
-//try robust
+//try sequential 
 bool oneDone = false;
 bool twoDone = false;
 bool threeDone = false;
+
+//to start the system 
+bool start = false;
 
 
 void setup() {
@@ -124,6 +127,8 @@ void loop() {
 
   //MAYBE MORE ROBUST METHOD SO FOCUS ON ONE PUMP AT A TIME
 
+  //start
+if(start){
   //one
     if(volume1<setpoint1){
     digitalWrite(onHigh1, HIGH);
@@ -135,7 +140,12 @@ void loop() {
     digitalWrite(lowAlways1, LOW);
     digitalWrite(pwm1, 0);
     oneDone = true; 
-  }
+  }}
+else{
+    oneDone = false;
+    twoDone = false;
+    threeDone = false;
+}
 
 //two
   if((volume2<setpoint2) && oneDone){
@@ -143,12 +153,16 @@ void loop() {
     digitalWrite(lowAlways2, LOW);
     digitalWrite(pwm2, 125);
   }
+  else if(volume2>=setpoint2){
+    twoDone = true;
+    digitalWrite(onHigh2, LOW);
+    digitalWrite(lowAlways2, LOW);
+    digitalWrite(pwm2, 0);
+  }
   else{
     digitalWrite(onHigh2, LOW);
     digitalWrite(lowAlways2, LOW);
     digitalWrite(pwm2, 0);
-    twoDone = true;
-
   }
 
 //three
@@ -157,11 +171,17 @@ void loop() {
     digitalWrite(lowAlways3, LOW);
     digitalWrite(pwm3, 125);
   }
+  else if(volume3>=setpoint3){
+    threeDone = true;
+    digitalWrite(onHigh2, LOW);
+    digitalWrite(lowAlways2, LOW);
+    digitalWrite(pwm2, 0);
+  }
   else{
     digitalWrite(onHigh3, LOW);
     digitalWrite(lowAlways3, LOW);
     digitalWrite(pwm3, 0);
-
+  }
 
 
 
@@ -174,6 +194,14 @@ void loop() {
   }
   if(pulse3==0 && setpoint3 != 0){
     digitalWrite(buzzer, HIGH);
+  }
+  
+  //if all the system is done, stop the work + refresh the variable
+  if(oneDone && twoDone && threeDone ){
+    oneDone = false;
+    twoDone = false;
+    threeDone = false;
+    start = false;
   }
 }
 

@@ -50,6 +50,9 @@ bool threeDone = false;
 //to start the system 
 bool start = false;
 
+//convert from pulse to volume
+double converter =  2.663; 
+
 
 void setup() {
   // Serial 
@@ -83,9 +86,9 @@ void setup() {
 
 void loop() {
   //for counting the volume
-  volume1 = 2.663*pulse1;
-  volume2 = 2.663*pulse2;
-  volume3 = 2.663*pulse3;
+  volume1 = converter*pulse1;
+  volume2 = converter*pulse2;
+  volume3 = converter*pulse3;
 
   //if the volume same as target, stop the water. 
 

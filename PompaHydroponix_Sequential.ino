@@ -4,16 +4,16 @@ NOTES: beware of intterupt -->  se can make error for all the actuator to work
 
 
 //PIN FOR FLOWMETER
-#define flowmeter1  D21;
-#define flowmeter2  D19;
-#define flowmeter3  D18; 
+#define flowmeter1  D21
+#define flowmeter2  D19
+#define flowmeter3  D18 
 
 //PIN FOR MOTOR DRIVER
 
 //pwm
-#define pwm1   D34; //ena1
-#define pwm2   D26; //ena2
-#define pwm3   D12; //ena3 
+#define pwm1   D34 //ena1
+#define pwm2   D26 //ena2
+#define pwm3   D12 //ena3 
 
 //in
 /*
@@ -21,12 +21,12 @@ onHigh: should on all the time when we want to use pump
 lowAlways: should off all the time when we want to use pump
 this is because pump is just one way, different with motor 
 */
-#define onHigh1  D35; //in 1
-#define lowAlways1  D32; //in2
-#define onHigh2 D33; //in3
-#define lowAlways2 D25 ; //in4
-#define onHigh3 D27; //in5
-#define lowAlways3 D14; //in6
+#define onHigh1  D35 //in 1
+#define lowAlways1  D32 //in2
+#define onHigh2 D33 //in3
+#define lowAlways2 D25  //in4
+#define onHigh3 D27 //in5
+#define lowAlways3 D14 //in6
 
 //VARIABLE
 
